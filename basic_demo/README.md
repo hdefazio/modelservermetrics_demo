@@ -39,7 +39,8 @@ Once your transformer image is pushed, deploy your Inference Service using the p
 
 After the Inference Service is deployed and ready, you can send inference requests to your model.
 
-### 1. Create Request from Image
+### Command line
+1. Create Request from Image
 
 First, prepare your request payload by converting an image into the required format using your Python script.
 
@@ -52,3 +53,6 @@ This script should generate a JSON file (e.g., `dog_input_request.json`) contain
 Finally, send the prepared JSON request to your KServe model endpoint using `curl`.
 
 `curl -X POST -vk -H "Content-Type: application/json" --data-binary @./dog_input_request.json https://dog-breeds-classifier-modelserving-demo.apps.rosa.n1t3u2f3w1s0b1d.kkw2.p3.openshiftapps.com/v2/models/dog-breeds-classifier/infer `
+
+### Python notebook
+Run the provided `dog_breeds_classifier_demo.ipynb` in a workbench on the cluster

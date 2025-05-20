@@ -48,7 +48,7 @@ spec:
           - python
           - '-m'
           - model
-        image: 'quay.io/hdefazio/image-transformer:v24'
+        image: 'quay.io/hdefazio/image-transformer:latest'
         name: kserve-container
         resources:
           limits:
