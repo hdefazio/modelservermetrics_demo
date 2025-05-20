@@ -40,7 +40,7 @@ Once your transformer image is pushed, deploy your Inference Service using the p
 After the Inference Service is deployed and ready, you can send inference requests to your model.
 
 ### Command line
-1. Create Request from Image
+#### 1. Create Request from Image
 
 First, prepare your request payload by converting an image into the required format using your Python script.
 
@@ -48,7 +48,7 @@ First, prepare your request payload by converting an image into the required for
 
 This script should generate a JSON file (e.g., `dog_input_request.json`) containing the image data.
 
-### 2. Send Request
+#### 2. Send Request
 
 Finally, send the prepared JSON request to your KServe model endpoint using `curl`.
 
