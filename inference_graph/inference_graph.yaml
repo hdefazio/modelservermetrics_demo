@@ -1,0 +1,22 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: InferenceGraph
+metadata:
+  name: dog-breed-pipeline
+spec:
+  nodes:
+    root:
+      routerType: Sequence
+      steps:
+        - name: dog_im_gen_vllm
+          serviceName: dog_im_gen_vllm
+        - name: dog_breeds_classifier
+          serviceName: dog_breeds_classifier
+          data: '$output.data'
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
