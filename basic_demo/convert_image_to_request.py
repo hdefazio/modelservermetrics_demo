@@ -21,8 +21,8 @@ img_array = np.transpose(img_array, (2, 0, 1))
 print(img_array.shape)  # Should be (height, width, channels)
 
 # Ensure the array is in NHWC format (this should be the case already if using PIL Image)
-#if img_array.ndim == 3:
-#    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+if img_array.ndim == 3:
+    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
 
 print(img_array.shape)  # Should be (1, height, width, channels)
 
@@ -39,5 +39,5 @@ request_data = {
 }
 
 # Save to a JSON file
-with open('3dog_input_request.json', 'w') as f:
+with open('4dog_input_request.json', 'w') as f:
     json.dump(request_data, f)

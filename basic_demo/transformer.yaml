@@ -8,22 +8,22 @@ spec:
       modelFormat:
         name: pytorch
       storageUri: gs://kfserving-examples/models/torchserve/image_classifier/v1
-    transformer:
-    automountServiceAccountToken: false
-    containers:
-      - args:
-          - '--model_name'
-          - dog-breeds-classifier
-        command:
-          - python
-          - '-m'
-          - model
-        image: 'quay.io/hdefazio/image-transformer:latest'
-        name: kserve-container
-        resources:
-          limits:
-            cpu: '1'
-            memory: 2Gi
-          requests:
-            cpu: '1'
-            memory: 2Gi
+  transformer:
+  automountServiceAccountToken: false
+  containers:
+    - args:
+        - '--model_name'
+        - dog-breeds-classifier
+      command:
+        - python
+        - '-m'
+        - model
+      image: 'quay.io/hdefazio/image-transformer:latest'
+      name: kserve-container
+      resources:
+        limits:
+          cpu: '1'
+          memory: 2Gi
+        requests:
+          cpu: '1'
+          memory: 2Gi

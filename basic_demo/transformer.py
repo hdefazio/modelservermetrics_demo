@@ -20,6 +20,7 @@ def image_transform(arr):
     if nparr.shape[0] == 3:
         # (channels, height, width) -> (height, width, channels)
         nparr = np.transpose(nparr, (1, 2, 0))
+    assert nparr.shape == (768, 1024, 3), f"Image array is the wrong shape {nparr.shape}"
     image = Image.fromarray(nparr, 'RGB')
     tensor = img_transform(image).numpy()
     
@@ -42,6 +43,8 @@ class ImageTransformer(Model):
             image_transform(instance) for instance in request.inputs[0].data
         ]
         input_tensors = np.asarray(input_tensors)
+        assert input_tensors.shape == (1, 3, 254, 254), f"Input tensor is the wrong size {input_tensors.shape}"
+
         infer_inputs = [
             InferInput(
                 name="input.1",
