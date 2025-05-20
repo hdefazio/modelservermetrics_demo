@@ -1,0 +1,57 @@
+﻿apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: dog-breeds-classifier
+    serving.knative.openshift.io/enablePassthrough: 'true'
+    serving.kserve.io/deploymentMode: Serverless
+    sidecar.istio.io/inject: 'true'
+    sidecar.istio.io/rewriteAppHTTPProbers: 'true'
+  name: dog-breeds-classifier
+  namespace: modelserving-demo
+  finalizers:
+    - inferenceservice.finalizers
+    - odh.inferenceservice.finalizers
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      modelFormat:
+        name: onnx
+        version: '1'
+      name: ''
+      protocolVersion: v2
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 4Gi
+      runtime: dog-breeds-classifier
+      storage:
+        key: hannahs3bucket
+        path: modelservermetrics_demo/dog_breed_classification/
+  transformer:
+    automountServiceAccountToken: false
+    containers:
+      - args:
+          - '--model_name'
+          - dog-breeds-classifier
+        command:
+          - python
+          - '-m'
+          - model
+        image: 'quay.io/hdefazio/image-transformer:v21'
+        name: kserve-container
+        resources:
+          limits:
+            cpu: '1'
+            memory: 2Gi
+          requests:
+            cpu: '1'
+            memory: 2Gi
