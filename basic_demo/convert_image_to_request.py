@@ -39,5 +39,5 @@ request_data = {
 }
 
 # Save to a JSON file
-with open('4dog_input_request.json', 'w') as f:
+with open('dog_input_request.json', 'w') as f:
     json.dump(request_data, f)
