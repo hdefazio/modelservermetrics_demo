@@ -42,11 +42,13 @@ spec:
       - args:
           - '--model_name'
           - dog-breeds-classifier
+          - '--predictor_protocol'
+          - v2
         command:
           - python
           - '-m'
           - model
-        image: 'quay.io/hdefazio/image-transformer:v21'
+        image: 'quay.io/hdefazio/image-transformer:v24'
         name: kserve-container
         resources:
           limits:

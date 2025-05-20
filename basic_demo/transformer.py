@@ -10,8 +10,8 @@ from kserve.model import PredictorProtocol, PredictorConfig
 
 def image_transform(arr):
     img_transform = transforms.Compose([
-        transforms.Resize(254),
-        transforms.CenterCrop(254),
+        transforms.Resize(224),
+        transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
@@ -20,7 +20,7 @@ def image_transform(arr):
     if nparr.shape[0] == 3:
         # (channels, height, width) -> (height, width, channels)
         nparr = np.transpose(nparr, (1, 2, 0))
-    assert nparr.shape == (768, 1024, 3), f"Image array is the wrong shape {nparr.shape}"
+
     image = Image.fromarray(nparr, 'RGB')
     tensor = img_transform(image).numpy()
     
@@ -43,7 +43,6 @@ class ImageTransformer(Model):
             image_transform(instance) for instance in request.inputs[0].data
         ]
         input_tensors = np.asarray(input_tensors)
-        assert input_tensors.shape == (1, 3, 254, 254), f"Input tensor is the wrong size {input_tensors.shape}"
 
         infer_inputs = [
             InferInput(
@@ -54,7 +53,7 @@ class ImageTransformer(Model):
             )
         ]
         infer_request = InferRequest(
-            model_name=self.model_name, model_version="v2", infer_inputs=infer_inputs
+            model_name=self.model_name, infer_inputs=infer_inputs
         )
         return infer_request
 
