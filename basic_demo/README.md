@@ -41,13 +41,13 @@ After the Inference Service is deployed and ready, you can send inference reques
 
 ### Command line
 #### 1. Create Request from Image
-a.  **Download the image conversion script **
+a.  **Download the image conversion script**
 
-`curl -o convert_image_to_request https://raw.githubusercontent.com/Jooho/minio-model-storage/refs/heads/main/docs/openvino/age-gender-recognition/convert_image.py `
+`curl -o convert_image_to_request.py https://raw.githubusercontent.com/Jooho/minio-model-storage/refs/heads/main/docs/openvino/age-gender-recognition/convert_image.py `
 
 Then, change the image and json filepaths in the script. We suggest using the provided `dog.jpg` as your input and `dog_input_request.json` as your output. 
 
-b. **Prepare your request payload by converting an image into the required format using your Python script **
+b. **Prepare your request payload by converting an image into the required format using your Python script**
 
 `python convert_image_to_request.py`
 
@@ -57,7 +57,7 @@ This script should generate a JSON file (e.g., `dog_input_request.json`) contain
 
 Finally, send the prepared JSON request to your KServe model endpoint using `curl`.
 
-`curl -X POST -vk -H "Content-Type: application/json" --data-binary @./dog_input_request.json https://dog-breeds-classifier-modelserving-demo.apps.rosa.n1t3u2f3w1s0b1d.kkw2.p3.openshiftapps.com/v2/models/dog-breeds-classifier/infer `
+`curl -X POST -vk -H "Content-Type: application/json" --data-binary @./dog_input_request.json https://dog-breeds-classifier-modelserving-demo.apps.rosa.n1t3u2f3w1s0b1d.kkw2.p3.openshiftapps.com/v2/models/dog-breeds-classifier/infer`
 
 ### Python notebook
 Run the provided `dog_breeds_classifier_demo.ipynb` in a workbench on the cluster
