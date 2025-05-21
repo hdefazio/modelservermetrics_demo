@@ -41,8 +41,13 @@ After the Inference Service is deployed and ready, you can send inference reques
 
 ### Command line
 #### 1. Create Request from Image
+a.  **Download the image conversion script **
 
-First, prepare your request payload by converting an image into the required format using your Python script.
+`curl -o convert_image_to_request https://raw.githubusercontent.com/Jooho/minio-model-storage/refs/heads/main/docs/openvino/age-gender-recognition/convert_image.py `
+
+Then, change the image and json filepaths in the script. We suggest using the provided `dog.jpg` as your input and `dog_input_request.json` as your output. 
+
+b. **Prepare your request payload by converting an image into the required format using your Python script **
 
 `python convert_image_to_request.py`
 
