@@ -38,7 +38,7 @@ Once your transformer image is pushed, deploy your Inference Service using the p
 ## 🔍 Inference Request
 
 After the Inference Service is deployed and ready, you can send inference requests to your model.
-* Note: Assumes you are logged in to a cluster with access to the s3 bucket `hannahs3bucket`
+* Note: Assumes you are logged in to a cluster with a data connection to the s3 bucket `hannahs3bucket` already configured
 
 ### Option 1: Python notebook
 
