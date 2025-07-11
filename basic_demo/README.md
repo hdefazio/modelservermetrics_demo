@@ -42,7 +42,7 @@ After the Inference Service is deployed and ready, you can send inference reques
 
 ### Option 1: Python notebook
 
-Run the provided `dog_breeds_classifier_demo.ipynb` in a workbench on the cluster
+Run the provided `dog_breeds_classifier_demo.ipynb` in a pytorch workbench on the cluster
 
 ### Option 2: Command line
 
