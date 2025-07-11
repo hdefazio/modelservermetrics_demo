@@ -1,0 +1,23 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    serving.kserve.io/autoscalerClass: none
+    serving.kserve.io/deploymentMode: RawDeployment
+  generation: 1
+  labels:
+    opendatahub.io/dashboard: "true"
+  name: vllm-llama3-8b
+spec:
+  predictor:
+    automountServiceAccountToken: false
+    model:
+      args:
+      - --dtype=half
+      modelFormat:
+        name: vLLM
+      name: ""
+      resources: {}
+      runtime: vllm-multinode-runtime
+      storageUri: pvc://llama-3-8b-pvc/hf/8b_instruction_tuned
+    workerSpec: {}
