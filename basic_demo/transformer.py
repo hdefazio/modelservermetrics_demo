@@ -1,11 +1,11 @@
-import argparse
-from typing import Dict
-import numpy as np
 import io
+import argparse
+import numpy as np
 from PIL import Image
+from typing import Dict, Union
 from torchvision import transforms
-from kserve import Model, ModelServer, model_server, InferInput, InferRequest, logging
-from kserve.model import PredictorProtocol, PredictorConfig
+from kserve import Model, ModelServer, model_server, InferInput, InferRequest, InferResponse, logging
+from kserve.model import PredictorConfig
 
 
 def image_transform(arr):
@@ -27,12 +27,8 @@ def image_transform(arr):
     return tensor
 
 class ImageTransformer(Model):
-    def __init__(self, name: str, predictor_config: PredictorConfig,):
-        super().__init__(
-            name,
-            predictor_config,
-            return_response_headers=True,
-        )
+    def __init__(self, name: str, predictor_config: PredictorConfig):
+        super().__init__(name, predictor_config)
         self.model_name = name
         self.ready = True
 
@@ -56,6 +52,17 @@ class ImageTransformer(Model):
             model_name=self.model_name, infer_inputs=infer_inputs
         )
         return infer_request
+    
+    async def postprocess(
+        self,
+        result: Union[Dict, InferResponse],
+        headers: Dict[str, str] = None,
+        response_headers: Dict[str, str] = None,
+    ) -> Union[Dict, InferResponse]:
+        # Fixes issue where the header claims that the response is compressed when it is not
+        if response_headers.get('content-encoding', '') == 'gzip':
+          del response_headers['content-encoding']
+        return result
 
 
 def transformer_main(args): 
