@@ -1,0 +1,104 @@
+﻿apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  annotations:
+    opendatahub.io/template-name: kserve-ovms
+    opendatahub.io/serving-runtime-scope: global
+    opendatahub.io/runtime-version: v2025.1
+    opendatahub.io/accelerator-name: ''
+    openshift.io/display-name: dog-breeds-classifier
+    opendatahub.io/template-display-name: OpenVINO Model Server
+    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    opendatahub.io/apiProtocol: REST
+    opendatahub.io/hardware-profile-name: migrated-gpu-mglzi-serving
+  resourceVersion: '165019815'
+  name: dog-breeds-classifier
+  uid: 57046bf6-32d8-40f6-a9b6-d75baabdced1
+  creationTimestamp: '2025-07-11T17:44:26Z'
+  generation: 1
+  managedFields:
+    - apiVersion: serving.kserve.io/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:opendatahub.io/template-display-name': {}
+            'f:opendatahub.io/recommended-accelerators': {}
+            'f:opendatahub.io/apiProtocol': {}
+            'f:opendatahub.io/hardware-profile-name': {}
+            .: {}
+            'f:opendatahub.io/accelerator-name': {}
+            'f:openshift.io/display-name': {}
+            'f:opendatahub.io/template-name': {}
+            'f:opendatahub.io/serving-runtime-scope': {}
+            'f:opendatahub.io/runtime-version': {}
+          'f:labels':
+            .: {}
+            'f:opendatahub.io/dashboard': {}
+        'f:spec':
+          .: {}
+          'f:annotations':
+            .: {}
+            'f:prometheus.io/path': {}
+            'f:prometheus.io/port': {}
+          'f:containers': {}
+          'f:multiModel': {}
+          'f:protocolVersions': {}
+          'f:supportedModelFormats': {}
+          'f:volumes': {}
+      manager: unknown
+      operation: Update
+      time: '2025-07-11T17:44:26Z'
+  namespace: modelserving-demo
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: '8888'
+  containers:
+    - args:
+        - '--model_name={{.Name}}'
+        - '--port=8001'
+        - '--rest_port=8888'
+        - '--model_path=/mnt/models'
+        - '--file_system_poll_wait_seconds=0'
+        - '--grpc_bind_address=0.0.0.0'
+        - '--rest_bind_address=0.0.0.0'
+        - '--target_device=AUTO'
+        - '--metrics_enable'
+      image: 'quay.io/opendatahub/openvino_model_server:2025.1-release'
+      name: kserve-container
+      ports:
+        - containerPort: 8888
+          protocol: TCP
+      volumeMounts:
+        - mountPath: /dev/shm
+          name: shm
+  multiModel: false
+  protocolVersions:
+    - v2
+    - grpc-v2
+  supportedModelFormats:
+    - autoSelect: true
+      name: openvino_ir
+      version: opset13
+    - name: onnx
+      version: '1'
+    - autoSelect: true
+      name: tensorflow
+      version: '1'
+    - autoSelect: true
+      name: tensorflow
+      version: '2'
+    - autoSelect: true
+      name: paddle
+      version: '2'
+    - autoSelect: true
+      name: pytorch
+      version: '2'
+  volumes:
+    - emptyDir:
+        medium: Memory
+        sizeLimit: 2Gi
+      name: shm

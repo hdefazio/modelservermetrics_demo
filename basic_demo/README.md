@@ -19,7 +19,10 @@ Begin by cloning the KServe repository to your local machine:
 b.  **Update Custom `model.py` File**
 Copy your custom transformer logic into the KServe directory. Ensure `${KSERVE_DIR}` is set to the path where you cloned the KServe repository.
 
-`cp transformer.py ${KSERVE_DIR}/kserve/python/custom_transformer/model.py `
+```bash
+export KSERVE_DIR=/path/to/kserve
+cp transformer.py ${KSERVE_DIR}/python/custom_transformer/model.py
+```
 
 c.  **Build and Push Image**
 Navigate to the Python directory within the KServe clone and build your Docker image. Then, push it to your desired registry.
@@ -31,8 +34,12 @@ podman push quay.io/hdefazio/image-transformer:latest
 ```
 
 ### 2. Create Inference Service
+Create the serving runtime using the provided YAML file.
 
-Once your transformer image is pushed, deploy your Inference Service using the provided YAML file.
+`oc apply -f servingruntime.yaml`
+
+
+Deploy your Inference Service using the provided YAML file.
 
 `oc apply -f isvc.yaml`
 
