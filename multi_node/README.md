@@ -62,21 +62,21 @@ labels:
 After the Inference Service is deployed and ready, you can send inference requests to your model.
 
 ### Option 1: Python notebook
-TODO
+Run the provided `vllm_demo.ipynb` in a pytorch workbench on the cluster
 
 ### Option 2: Command line
-#### Get the Service URL
+#### Get the Public URL
 ```bash
-export SERVICE_URL=$(oc get isvc vllm-llama3-8b -n modelserving-demo -o jsonpath='{.status.url}')
-echo $SERVICE_URL
+oc expose service vllm-llama3-8b-predictor
+export PUBLIC_URL=$(oc get route vllm-llama3-8b-predictor -n modelserving-demo -o jsonpath='{"http://"}{.spec.host}{"\n"}')
 ```
 
 #### Send an Inference Request
 ``` 
-oc exec vllm-llama3-8b-predictor-6864b5c6d-gnwzd -n modelserving-demo -- curl ${SERVICE_URL}/v1/completions  -H "Content-Type: application/json" \
+oc exec vllm-llama3-8b-predictor-6864b5c6d-gnwzd -n modelserving-demo -- curl ${PUBLIC_URL}/v1/completions  -H "Content-Type: application/json" \
     -d '{
         "model": "vllm-llama3-8b",
-        "prompt": "At what temperature does Nitrogen boil?",
+        "prompt": "Write a poem about a dog",
         "max_tokens": 100,
         "temperature": 0
     }'
