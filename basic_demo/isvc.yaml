@@ -8,7 +8,6 @@ metadata:
     sidecar.istio.io/inject: 'true'
     sidecar.istio.io/rewriteAppHTTPProbers: 'true'
   name: dog-breeds-classifier
-  namespace: modelserving-demo
   finalizers:
     - inferenceservice.finalizers
     - odh.inferenceservice.finalizers

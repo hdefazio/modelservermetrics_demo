@@ -2,10 +2,17 @@
 
 This guide provides steps to set up and query an Inference Service (ISVC) with a custom image transformer.
 
+## 📋 Prerequisites
+
+You are logged into an OpenShift cluster using the oc CLI.
+
+You are logged in to a cluster with a data connection to the s3 bucket `hannahs3bucket` already configured
+
+You have a Hugging Face access token with permissions to download the Llama 3 model.
+
 ## 🚀 Setup
 
 Follow these steps to prepare your custom transformer image and deploy the Inference Service.
-* Note: Assumes you are logged in to a cluster with a data connection to the s3 bucket `hannahs3bucket` already configured
 
 ### 1. Build Transformer Image
 
@@ -21,7 +28,7 @@ Copy your custom transformer logic into the KServe directory. Ensure `${KSERVE_D
 
 ```bash
 export KSERVE_DIR=/path/to/kserve
-cp transformer.py ${KSERVE_DIR}/python/custom_transformer/model.py
+cp image_transformer.py ${KSERVE_DIR}/python/custom_transformer/model.py
 ```
 
 c.  **Build and Push Image**
@@ -32,6 +39,8 @@ cd ${KSERVE_DIR}/python
 podman build -t quay.io/hdefazio/image-transformer:latest -f custom_transformer.Dockerfile . 
 podman push quay.io/hdefazio/image-transformer:latest
 ```
+
+Make the repository public in quay
 
 ### 2. Create Inference Service
 Create the serving runtime using the provided YAML file.
