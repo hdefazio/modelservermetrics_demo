@@ -1,3 +1,7 @@
+# Inference Graph KServe Setup & Query Guide
+
+This guide provides steps to set up and query an Inference Graph (IG) using the previous two models as steps in the sequence.
+
 ## 📋 Prerequisites
 
 You are logged into an OpenShift cluster using the oc CLI.
@@ -36,3 +40,11 @@ Make the repository public in quay
 
 ### 2. Update the vllm ISVC
 Copy the contents of the `transformer.yaml` file to the `vllm-llama3-8b` spec field
+
+## 🔍 Inference Request
+
+After the Inference Service is deployed and ready, you can send inference requests to your model.
+
+### Option 1: Python notebook
+
+Run the provided `inference_graph_demo.ipynb` in a pytorch workbench on the cluster
