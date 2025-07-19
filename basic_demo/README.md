@@ -36,6 +36,7 @@ Navigate to the Python directory within the KServe clone and build your Docker i
 
 ```bash 
 cd ${KSERVE_DIR}/python 
+podman login quay.io/hdefazio/image-transformer
 podman build -t quay.io/hdefazio/image-transformer:latest -f custom_transformer.Dockerfile . 
 podman push quay.io/hdefazio/image-transformer:latest
 ```
