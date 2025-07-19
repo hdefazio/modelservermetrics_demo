@@ -4,13 +4,13 @@ transformer:
       - args:
           - '--model_name'
           - prompt-builder
-          - '--predictor_protocol'
-          - v2
+          - '--predictor_host'
+          - vllm-llama3-8b-predictor.modelserving-demo.svc.cluster.local
         command:
           - python
           - '-m'
           - model
-        image: 'quay.io/hdefazio/topic-prompt-builder-transformer:v8'
+        image: 'quay.io/hdefazio/topic-prompt-builder-transformer:v28'
         name: kserve-container
         resources:
           limits:
