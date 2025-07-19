@@ -13,7 +13,8 @@ spec:
         - name: dog-breeds-classifier
           serviceName: dog-breeds-classifier
         # Write a poem about the dog breed
-        - name: vllm-llama3-8b
+        - data: $response
+          name: vllm-llama3-8b
           serviceName: vllm-llama3-8b
   resources:
     limits:
