@@ -39,7 +39,7 @@ podman push quay.io/hdefazio/topic-prompt-builder-transformer:latest
 Make the repository public in quay
 
 ### 2. Update the vllm ISVC
-Copy the contents of the `transformer.yaml` file to the `vllm-llama3-8b` spec field
+Copy the contents of the `vllm_transformer.yaml` file to the `vllm-llama3-8b` `spec` field
 
 ## 🔍 Inference Request
 
