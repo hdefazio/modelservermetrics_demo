@@ -1,0 +1,21 @@
+transformer:
+    automountServiceAccountToken: false
+    containers:
+      - args:
+          - '--model_name'
+          - prompt-builder
+          - '--predictor_protocol'
+          - v2
+        command:
+          - python
+          - '-m'
+          - model
+        image: 'quay.io/hdefazio/topic-prompt-builder-transformer:v8'
+        name: kserve-container
+        resources:
+          limits:
+            cpu: '1'
+            memory: 2Gi
+          requests:
+            cpu: '1'
+            memory: 2Gi

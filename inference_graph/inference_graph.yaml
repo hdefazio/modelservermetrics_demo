@@ -1,17 +1,20 @@
 apiVersion: serving.kserve.io/v1alpha1
 kind: InferenceGraph
 metadata:
-  name: dog-breed-pipeline
+  name: dog-poem-pipeline
+  annotations:
+    serving.kserve.io/deploymentMode: RawDeployment
 spec:
   nodes:
     root:
       routerType: Sequence
       steps:
-        - name: dog_im_gen_vllm
-          serviceName: dog_im_gen_vllm
-        - name: dog_breeds_classifier
-          serviceName: dog_breeds_classifier
-          data: '$output.data'
+        # Identify the dog breed
+        - name: dog-breeds-classifier
+          serviceName: dog-breeds-classifier
+        # Write a poem about the dog breed
+        - name: vllm-llama3-8b
+          serviceName: vllm-llama3-8b
   resources:
     limits:
       cpu: 1
