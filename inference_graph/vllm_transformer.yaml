@@ -5,7 +5,7 @@ transformer:
           - '--model_name'
           - prompt-builder
           - '--predictor_host'
-          - vllm-llama3-8b-predictor.modelserving-demo.svc.cluster.local
+          - 'vllm-llama3-8b-predictor.modelserving-demo.svc.cluster.local:8080'
         command:
           - python
           - '-m'
