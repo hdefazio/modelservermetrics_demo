@@ -41,6 +41,12 @@ Make the repository public in quay
 ### 2. Update the vllm ISVC
 Copy the contents of the `vllm_transformer.yaml` file to the `vllm-llama3-8b` `spec` field
 
+### 3. Deploy the Inference Graph
+
+```bash
+oc apply -f inference_graph.yaml
+```
+
 ## 🔍 Inference Request
 
 After the Inference Service is deployed and ready, you can send inference requests to your model.
