@@ -10,6 +10,8 @@ This demo highlights the work of the Red Hat OpenShift AI Model Server and Metri
 - Enable real-time observability and ensure performance and reliability of models.
 - Provide end-to-end ML lifecycle management via scalable and modular serving infrastructure.
 
+A recording of the features showcased in this demo can be found on [YouTube](https://www.youtube.com/watch?v=OjOgmMx3B7I).
+
 ## 🎯 Demo Goals
 
 - Show real-world use cases of serving and monitoring models on OpenShift AI.
